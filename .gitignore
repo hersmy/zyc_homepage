@@ -27,3 +27,6 @@ package-lock.json
 .sync
 history/*.json
 .vite_cache
+.env.server
+.env.server.local
+!.env.server.example
