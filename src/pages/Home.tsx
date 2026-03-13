@@ -46,7 +46,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <PageMeta title="寮犱害寮涚殑涓汉涓婚〉" description="灞曠ず涓汉 profile 鍜屾彁渚涙暟瀛楀垎韬亰澶╀簰鍔ㄧ殑涓汉涓婚〉" />
+      <PageMeta title="张亦弛的个人主页" description="一个展示个人 profile 和提供数字分身聊天互动的个人主页" />
 
       <main className="flex-grow">
         <div ref={heroRef}>
@@ -62,10 +62,11 @@ const Home: React.FC = () => {
       </main>
 
       <footer className="py-8 border-t border-border text-center text-muted-foreground text-sm">
-        <p>漏 2026 寮犱害寮涚殑涓汉涓婚〉. All rights reserved.</p>
+        <p>© 2026 张亦弛的个人主页. All rights reserved.</p>
       </footer>
     </div>
   );
 };
 
 export default Home;
+
