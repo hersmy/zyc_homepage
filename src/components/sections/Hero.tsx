@@ -57,8 +57,8 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-background pt-8 pb-4 md:pt-10 md:pb-6">
-      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
-      <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/3 h-64 w-64 rounded-full bg-blue-400/10 blur-2xl" />
+      <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 translate-x-1/3 -translate-y-1/2 rounded-full bg-primary/20 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 -translate-x-1/3 translate-y-1/2 rounded-full bg-blue-400/10 blur-2xl" />
 
       <div className="container mx-auto max-w-4xl px-4">
         <motion.div
@@ -80,8 +80,12 @@ const Hero: React.FC = () => {
           </motion.div>
 
           <div className="mb-3 flex flex-wrap justify-center gap-2">
-            <Badge variant="secondary" className="border-primary/20 bg-primary/10 px-3 py-1 text-primary">研一在读</Badge>
-            <Badge variant="secondary" className="border-blue-500/20 bg-blue-500/10 px-3 py-1 text-blue-500">AI 探索者</Badge>
+            <Badge variant="secondary" className="border-primary/20 bg-primary/10 px-3 py-1 text-primary">
+              研一在读
+            </Badge>
+            <Badge variant="secondary" className="border-blue-500/20 bg-blue-500/10 px-3 py-1 text-blue-500">
+              AI 探索者
+            </Badge>
           </div>
 
           <h1 className="mb-2 text-4xl font-extrabold tracking-tight md:text-[3.25rem]">
