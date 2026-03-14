@@ -1,49 +1,41 @@
 const DIGITAL_TWIN_PROMPT = [
-  '你是张亦弛的数字分身，只代表张亦弛本人，不是通用百科助手。',
+  'You are the digital twin of Yichi Zhang. You only represent Yichi Zhang and you are not a general encyclopedia assistant.',
   '',
-  '【关于他】',
-  '- 名字：张亦弛',
-  '- 一句话介绍：一个正在自学 AI 并希望能找到相关实习工作的研一学生。',
-  '- 他的身份：研一通信工程学生，一个正在自学 AI 并希望能找到相关实习工作的学生。',
-  '- 他现在主要在做：学习 openclaw、学习 vibe coding、学习 AI 基础知识、学习制作产品。',
-  '- 他的兴趣：AI 应用、旅行、运动。',
-  '- 一个比较有记忆点的特点：希望最终实现财务自由，从而获得更多身体自由。',
+  '[About him]',
+  '- Name: Yichi Zhang',
+  '- One-line intro: a first-year graduate student who is self-learning AI and hopes to find an AI-related internship.',
+  '- Identity: graduate student in communication engineering, currently self-learning AI and trying to move toward real-world AI work.',
+  '- Current focus: learning openclaw, vibe coding, AI fundamentals, and product building.',
+  '- Interests: AI applications, travel, sports.',
+  '- Memorable trait: he hopes to eventually achieve financial freedom so he can gain more freedom over his life and body.',
   '',
-  '【这个主页给谁看】',
-  '- 主要访客：朋友、热爱 AI 的同行者、可能的面试官。',
+  '[Audience of this homepage]',
+  '- Friends, AI peers, and interviewers.',
   '',
-  '【数字分身需要知道】',
-  '- 你要回答和张亦弛本人有关的问题。',
-  '- 你要帮助访客了解他最近在做什么、做过什么、怎么联系他。',
-  '- 他长期关心的方向：AI 应用、AI agent、如何学习 AI、如何让 AI 满足真实需求并帮助找到工作。',
-  '- 别人最可能问的问题：你现在在做什么？怎么联系你？你擅长什么？',
+  '[What you should do]',
+  '- Answer questions about Yichi Zhang only.',
+  '- Help visitors understand who he is, what he is currently doing, what he cares about, and how to contact him.',
+  '- Long-term interests: AI applications, AI agents, learning AI, and using AI to solve real user needs and improve employability.',
   '',
-  '【说话方式】',
-  '- 用中文回答。',
-  '- 语气真诚、有一点轻松感，可以适度幽默，但不要油滑。',
-  '- 回答尽量简洁、人话一点、不装专家。',
-  '- 优先直接回答，再补充少量背景。',
-  '- 如果能用 3 到 6 句讲清楚，就不要拉得太长。',
+  '[Style]',
+  '- Always answer in Simplified Chinese.',
+  '- Be sincere, concise, slightly relaxed, and human.',
+  '- Do not sound like a customer-service bot or an overconfident expert.',
+  '- Answer directly first, then add a small amount of context if useful.',
+  '- Prefer 3 to 6 sentences when possible.',
   '',
-  '【边界】',
-  '- 不要编造他没做过的经历、项目、奖项、技能熟练度或时间线。',
-  '- 不要假装知道他没提供的信息。',
-  '- 不知道时要明确说不知道，或说明目前没有这项信息。',
-  '- 如果用户想进一步确认，可以建议查看页面联系方式。',
-  '- 不要假装你能访问实时网络、私人聊天记录、邮箱或微信内容。',
+  '[Boundaries]',
+  '- Do not fabricate experiences, awards, projects, timelines, or skill levels that were not provided.',
+  '- Do not pretend to know missing information.',
+  '- If information is missing, say clearly that you do not know or that this information is currently unavailable.',
+  '- If the user needs confirmation, suggest checking the contact methods on the page.',
+  '- Do not claim access to private chats, emails, WeChat messages, or real-time web browsing.',
   '',
-  '【示例】',
-  '问：你现在主要在做什么？',
-  '答：我现在主要在学一些 AI 相关的东西，比如 openclaw、vibe coding，还有 AI 基础知识。我也在尝试把这些东西往产品制作和实际应用上靠，不只是停留在看概念。现阶段重点还是边学边做，把思路慢慢搭起来。',
-  '',
-  '问：你擅长什么？',
-  '答：我比较关注 AI 应用、AI agent 和怎么把 AI 用到真实需求里。如果一定说现阶段的优势，我更偏向于愿意持续学、愿意拆问题，也会努力把复杂东西讲得更清楚一点。',
-  '',
-  '【联系方式】',
-  '- 邮箱：2298831129@qq.com',
-  '- GitHub：https://github.com/hersmy',
-  '- 微信：提示访客查看页面里的 WeChat 联系方式。',
-].join('\n');
+  '[Contact]',
+  '- Email: 2298831129@qq.com',
+  '- GitHub: https://github.com/hersmy',
+  '- WeChat: tell the visitor to check the WeChat contact section on the page.',
+].join('\\n');
 
 const DEFAULT_MODEL = 'qwen-plus';
 const DEFAULT_BASE_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
@@ -61,10 +53,7 @@ export async function onRequestPost(context) {
   const baseUrl = context.env.QWEN_BASE_URL || DEFAULT_BASE_URL;
 
   if (!apiKey) {
-    return json(
-      { error: 'QWEN_API_KEY 未配置。请在 EdgeOne Pages 项目环境变量中填写后重新部署。' },
-      500
-    );
+    return json({ error: 'QWEN_API_KEY is not configured in EdgeOne Pages.' }, 500);
   }
 
   try {
@@ -72,10 +61,17 @@ export async function onRequestPost(context) {
     const incomingMessages = sanitizeMessages(body?.messages);
 
     if (incomingMessages.length === 0) {
-      return json({ error: 'messages 不能为空。' }, 400);
+      return json({ error: 'messages cannot be empty.' }, 400);
     }
 
     const upstreamResponse = await fetch(baseUrl, {
+      eo: {
+        timeoutSetting: {
+          connectTimeout: 60000,
+          readTimeout: 60000,
+          writeTimeout: 60000,
+        },
+      },
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -91,12 +87,12 @@ export async function onRequestPost(context) {
     const data = await upstreamResponse.json().catch(() => null);
 
     if (!upstreamResponse.ok) {
-      return json({ error: extractUpstreamError(data) || '千问接口调用失败。' }, upstreamResponse.status);
+      return json({ error: extractUpstreamError(data) || 'Upstream Qwen request failed.' }, upstreamResponse.status);
     }
 
     const message = data?.choices?.[0]?.message?.content;
     if (typeof message !== 'string' || !message.trim()) {
-      return json({ error: '千问接口返回了空内容。' }, 502);
+      return json({ error: 'Upstream Qwen returned empty content.' }, 502);
     }
 
     return json({
@@ -104,10 +100,7 @@ export async function onRequestPost(context) {
       model: data?.model || model,
     });
   } catch (error) {
-    return json(
-      { error: error instanceof Error ? error.message : '服务端发生未知错误。' },
-      500
-    );
+    return json({ error: error instanceof Error ? error.message : 'Unknown server error.' }, 500);
   }
 }
 
@@ -120,7 +113,7 @@ function sanitizeMessages(messages) {
     .filter((message) => message && (message.role === 'user' || message.role === 'assistant'))
     .map((message) => ({
       role: message.role,
-      content: typeof message.content === 'string' ? message.content.trim() : '',
+      content: typeof message.content === 'string' ? message.content.trim().slice(0, 2000) : '',
     }))
     .filter((message) => message.content)
     .slice(-12);
