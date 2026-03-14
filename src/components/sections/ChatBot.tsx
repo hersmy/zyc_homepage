@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Send, User, Bot, Sparkles, RefreshCw, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -27,6 +27,13 @@ const initialAssistantMessage: Message = {
   content: '你好！我是张亦弛的数字分身。你可以问我关于我的学习进度、兴趣方向、项目尝试或联系方式。',
   timestamp: new Date(),
 };
+
+const quickQuestions = [
+  '你最近在做什么？',
+  '你的兴趣方向是什么？',
+  '如何联系你？',
+  '你的职业规划是怎样的？',
+];
 
 const ChatBot: React.FC<ChatBotProps> = ({
   className = '',
@@ -97,7 +104,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
         content:
           typeof data?.message === 'string' && data.message.trim()
             ? data.message.trim()
-            : '这次我没能拿到有效回复，你可以再问一次。',
+            : '这次我没拿到有效回复，你可以再问一次。',
         timestamp: new Date(),
       };
 
@@ -136,38 +143,36 @@ const ChatBot: React.FC<ChatBotProps> = ({
     }
   }, [messages, isTyping]);
 
-  const quickQuestions = [
-    '你最近在做什么？',
-    '你的兴趣方向是什么？',
-    '如何联系你？',
-    '你的职业规划是怎样的？',
-  ];
-
   const scrollAreaClass =
     variant === 'floating'
-      ? 'h-[250px] px-4 py-3 md:h-[280px] lg:h-[min(56vh,420px)]'
+      ? 'h-[200px] px-4 py-3 sm:h-[240px] lg:h-[min(56vh,420px)]'
       : 'h-[250px] px-4 py-3 md:h-[280px]';
 
+  const cardClass =
+    variant === 'floating'
+      ? 'overflow-hidden border border-white/30 bg-white/80 shadow-lg backdrop-blur-xl max-h-[76vh] lg:max-h-none dark:border-slate-800 dark:bg-slate-900/60'
+      : 'overflow-hidden border border-white/30 bg-white/75 shadow-lg backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/60';
+
   const cardNode = (
-    <Card className="overflow-hidden border border-white/30 bg-white/75 shadow-lg backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/60">
+    <Card className={cardClass}>
       <CardHeader className="border-b border-border bg-primary/5 p-3">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between gap-2">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="relative">
+            <div className="relative shrink-0">
               <div className="rounded-full bg-primary/20 p-2.5">
                 <Bot className="h-6 w-6 text-primary" />
               </div>
               <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green-500 dark:border-slate-900" />
             </div>
             <div className="min-w-0">
-              <CardTitle className="truncate text-xl">张亦弛的数字分身</CardTitle>
+              <CardTitle className="truncate text-lg md:text-xl">张亦弛的数字分身</CardTitle>
               <div className="flex items-center gap-1">
                 <Sparkles className="h-3.5 w-3.5 text-blue-500" />
                 <span className="text-xs text-muted-foreground">由 AI 大模型驱动</span>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1">
             <Button variant="ghost" size="icon" onClick={() => setMessages([initialAssistantMessage])} title="重置对话">
               <RefreshCw className="h-4 w-4" />
             </Button>
@@ -188,7 +193,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
 
       <CardContent className="p-0">
         <ScrollArea ref={scrollRef} className={scrollAreaClass}>
-          <div className="space-y-6">
+          <div className="space-y-5">
             {messages.map((msg) => (
               <motion.div
                 key={msg.id}
@@ -196,12 +201,22 @@ const ChatBot: React.FC<ChatBotProps> = ({
                 animate={{ opacity: 1, x: 0 }}
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div className={`flex max-w-[85%] gap-3 md:max-w-[70%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                  <div className={`mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${msg.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground'}`}>
+                <div
+                  className={`flex max-w-[92%] gap-3 sm:max-w-[85%] lg:max-w-[78%] ${
+                    msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
+                  }`}
+                >
+                  <div
+                    className={`mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
+                      msg.role === 'user'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-secondary-foreground'
+                    }`}
+                  >
                     {msg.role === 'user' ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
                   </div>
                   <div
-                    className={`rounded-2xl px-4 py-3 text-sm shadow-sm md:text-base ${
+                    className={`rounded-2xl px-4 py-3 text-sm leading-7 shadow-sm md:text-base ${
                       msg.role === 'user'
                         ? 'rounded-tr-none bg-primary text-primary-foreground'
                         : 'rounded-tl-none border border-border bg-white dark:bg-slate-800'
@@ -237,7 +252,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
             <button
               key={i}
               onClick={() => handleQuickQuestion(q)}
-              className="rounded-full border border-border bg-white px-3 py-1.5 text-xs text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary dark:bg-slate-800"
+              className="rounded-full border border-border bg-white px-3 py-1.5 text-[11px] text-muted-foreground transition-all hover:bg-primary/10 hover:text-primary sm:text-xs dark:bg-slate-800"
             >
               {q}
             </button>
@@ -287,11 +302,11 @@ const ChatBot: React.FC<ChatBotProps> = ({
             />
             <motion.div
               id="contact"
-              initial={{ opacity: 0, scale: 0.96, x: 24 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.96, x: 24 }}
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 16 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className={`fixed right-3 top-1/2 z-50 w-[min(88vw,320px)] -translate-y-1/2 lg:right-6 lg:top-24 lg:w-[400px] lg:translate-y-0 ${className}`.trim()}
+              className={`fixed inset-x-3 bottom-4 z-50 mx-auto w-auto max-w-[360px] lg:inset-x-auto lg:right-6 lg:top-24 lg:bottom-auto lg:w-[400px] ${className}`.trim()}
             >
               {cardNode}
             </motion.div>
@@ -306,7 +321,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
           onClick={() => setOpen(true)}
-          className={`fixed right-3 top-1/2 z-50 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-primary/15 bg-white/90 text-primary shadow-lg backdrop-blur md:h-16 md:w-16 lg:right-6 lg:top-24 lg:h-16 lg:w-16 lg:translate-y-0 ${className}`.trim()}
+          className={`fixed right-4 bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-primary/15 bg-white/90 text-primary shadow-lg backdrop-blur md:h-16 md:w-16 lg:right-6 lg:top-24 lg:bottom-auto ${className}`.trim()}
           aria-label="打开数字分身"
         >
           <div className="relative flex h-full w-full items-center justify-center rounded-full bg-primary/8">

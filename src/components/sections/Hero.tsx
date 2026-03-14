@@ -57,7 +57,6 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-background to-background pt-8 pb-4 md:pt-10 md:pb-6">
-      {/* Decorative background elements */}
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
       <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/3 h-64 w-64 rounded-full bg-blue-400/10 blur-2xl" />
 
@@ -155,9 +154,9 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.96 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="fixed left-1/2 top-1/2 z-50 w-[min(92vw,360px)] -translate-x-1/2 -translate-y-1/2"
+              className="fixed inset-x-3 top-1/2 z-50 mx-auto w-auto max-w-[340px] -translate-y-1/2 md:left-1/2 md:inset-x-auto md:w-[min(92vw,360px)] md:-translate-x-1/2"
             >
-              <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/90 shadow-lg backdrop-blur-xl">
+              <div className="max-h-[82vh] overflow-hidden rounded-3xl border border-white/40 bg-white/90 shadow-lg backdrop-blur-xl">
                 <div className="flex items-center justify-between border-b border-border bg-primary/5 px-4 py-3">
                   <div>
                     <h2 className="text-base font-semibold text-foreground">
@@ -193,11 +192,11 @@ const Hero: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  <div className="space-y-4 p-4 text-center">
+                  <div className="max-h-[calc(82vh-68px)] space-y-4 overflow-y-auto p-4 text-center">
                     <img
                       src={contactInfo.wechatQrImage}
                       alt="微信二维码"
-                      className="mx-auto h-auto w-full max-w-[220px] rounded-2xl border border-border bg-white"
+                      className="mx-auto h-auto w-full max-w-[190px] rounded-2xl border border-border bg-white sm:max-w-[220px]"
                     />
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-foreground">微信扫码联系我</p>
