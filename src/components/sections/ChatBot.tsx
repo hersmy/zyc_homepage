@@ -145,12 +145,12 @@ const ChatBot: React.FC<ChatBotProps> = ({
 
   const scrollAreaClass =
     variant === 'floating'
-      ? 'h-[200px] px-4 py-3 sm:h-[240px] lg:h-[min(56vh,420px)]'
+      ? 'h-[290px] px-4 py-3 sm:h-[320px] lg:h-[min(56vh,420px)]'
       : 'h-[250px] px-4 py-3 md:h-[280px]';
 
   const cardClass =
     variant === 'floating'
-      ? 'overflow-hidden border border-white/30 bg-white/80 shadow-lg backdrop-blur-xl max-h-[76vh] lg:max-h-none dark:border-slate-800 dark:bg-slate-900/60'
+      ? 'overflow-hidden border border-white/30 bg-white/80 shadow-lg backdrop-blur-xl max-h-[82vh] lg:max-h-none dark:border-slate-800 dark:bg-slate-900/60'
       : 'overflow-hidden border border-white/30 bg-white/75 shadow-lg backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/60';
 
   const cardNode = (
@@ -202,7 +202,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`flex max-w-[92%] gap-3 sm:max-w-[85%] lg:max-w-[78%] ${
+                  className={`flex max-w-[96%] gap-3 sm:max-w-[88%] lg:max-w-[78%] ${
                     msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
                   }`}
                 >
@@ -306,7 +306,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 16 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className={`fixed inset-x-3 bottom-4 z-50 mx-auto w-auto max-w-[360px] lg:inset-x-auto lg:right-6 lg:top-24 lg:bottom-auto lg:w-[400px] ${className}`.trim()}
+              className={`fixed inset-x-2 bottom-3 z-50 mx-auto w-auto max-w-[420px] lg:inset-x-auto lg:right-6 lg:top-24 lg:bottom-auto lg:w-[400px] ${className}`.trim()}
             >
               {cardNode}
             </motion.div>
