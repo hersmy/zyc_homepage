@@ -320,4 +320,3 @@ const ChatBot: React.FC<ChatBotProps> = ({
 };
 
 export default ChatBot;
-
