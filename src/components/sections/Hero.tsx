@@ -93,7 +93,7 @@ const Hero: React.FC = () => {
           </h1>
 
           <p className="mx-auto mb-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            一个正在学习用 AI agent的学生。
+            一个正在学习 AI agent的学生。
           </p>
 
           <div className="mx-auto mt-6 w-fit space-y-3 text-left">
